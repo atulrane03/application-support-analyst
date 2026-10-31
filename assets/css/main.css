@@ -3363,11 +3363,10 @@ table.alt tbody tr td {
 	width: 100%;
 	height: 100%;
 	background-color: #212931;
-	background-image: url("../../images/overlay.png"), linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../../images/bg.jpg");
-	background-size: auto, auto, 100% auto;
-	background-position: center, center, top center;
-	background-repeat: repeat, no-repeat, no-repeat;
-	background-attachment: scroll, scroll, scroll;
+	background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1));
+	background-position: center;
+	background-repeat: no-repeat;
+	background-attachment: scroll;
 	z-index: -1;
 }
 
@@ -3405,7 +3404,7 @@ body.is-preload #wrapper.fade-in:before {
 @media screen and (orientation: portrait) {
 
 	#wrapper>.bg {
-		background-size: auto, auto, auto 175%;
+		background-size: auto;
 	}
 
 }
@@ -3523,7 +3522,7 @@ body.is-preload #wrapper.fade-in:before {
 }
 
 #intro h1 {
-	font-size: 5rem;
+	font-size: clamp(3rem, 4.4vw, 4.5rem);
 	line-height: 1;
 }
 
@@ -3532,6 +3531,18 @@ body.is-preload #wrapper.fade-in:before {
 	font-style: italic;
 	margin-top: -0.25rem;
 	text-align: center;
+}
+
+#intro h1,
+#intro p {
+	align-self: center;
+	width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+}
+
+#intro p {
+	max-width: 75rem;
 }
 
 #intro+#header {
@@ -3625,6 +3636,19 @@ body.is-preload #intro:not(.hidden)+#header+#nav {
 		display: none;
 	}
 
+}
+
+@media screen and (max-width: 480px) {
+	#intro h1 {
+		font-size: 2.7rem;
+		letter-spacing: 0.05em;
+	}
+
+	#main>.post header.major>h1,
+	#main>.post header.major h2 {
+		font-size: 2.25rem;
+		letter-spacing: 0.05em;
+	}
 }
 
 /* Header */
@@ -3939,11 +3963,15 @@ body.is-preload #intro:not(.hidden)+#header+#nav {
 #certifications .cert-card p{ margin: .6rem 0 0; }
 #certifications .actions{ margin-top: auto; }  /* button sticks to bottom */
 
-/* If the last row has one card, span full width (no right gap) */
-#certifications .certs > article:nth-last-child(1):nth-child(odd){
-  grid-column: 1 / -1;
-}
+@media screen and (max-width: 600px) {
+	#certifications .certs {
+		grid-template-columns: minmax(0, 1fr);
+	}
 
+	#certifications .cert-card {
+		min-width: 0;
+	}
+}
 
 /* container of your project <article> cards */
 /* Grid for cards */
@@ -3951,6 +3979,21 @@ body.is-preload #intro:not(.hidden)+#header+#nav {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 2rem;
+}
+
+.projects > article {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+}
+
+.projects > article p {
+	text-align: left;
+}
+
+.projects > article .actions {
+	margin-top: auto;
+	padding-top: 1.25rem;
 }
 
 /* If total count is odd, make the last card span full width */
@@ -3969,8 +4012,19 @@ body.is-preload #intro:not(.hidden)+#header+#nav {
 .projects > article:last-child:nth-child(odd) .image.fit { margin: .8rem 0 0; }
 .projects > article:last-child:nth-child(odd) p { margin: .9rem 0 0; }
 
-/* Optional: keep images modest */
-.projects > article .image.fit img { width:100%; height:auto; max-height:260px; object-fit:cover; }
+/* Give each project image the same footprint without cropping logos or screenshots. */
+.projects > article .image.fit {
+	aspect-ratio: 16 / 9;
+	background: #f4f5f6;
+	overflow: hidden;
+}
+
+.projects > article .image.fit img {
+	width: 100%;
+	height: 100%;
+	max-height: none;
+	object-fit: contain;
+}
 
 /* Responsive: single column on small screens */
 @media (max-width: 800px){
@@ -4019,6 +4073,18 @@ body.is-preload #intro:not(.hidden)+#header+#nav {
 
 #main>.post.featured {
 	text-align: center;
+}
+
+#projects > a.image.main {
+	width: 72%;
+	max-width: 860px;
+	margin: 2.75rem auto;
+}
+
+@media screen and (max-width: 736px) {
+	#projects > a.image.main {
+		width: 100%;
+	}
 }
 
 @media screen and (max-width: 1280px) {
